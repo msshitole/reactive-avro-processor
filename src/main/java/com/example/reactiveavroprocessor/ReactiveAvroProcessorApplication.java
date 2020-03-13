@@ -15,21 +15,21 @@ import java.util.function.Function;
 @SpringBootApplication
 public class ReactiveAvroProcessorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ReactiveAvroProcessorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ReactiveAvroProcessorApplication.class, args);
+    }
 
-	@Bean
-	public MessageConverter avroDocumentMessageConverter() {
-		AvroSchemaMessageConverter converter = new AvroSchemaMessageConverter(MimeType.valueOf("avro/bytes"), new AvroSchemaServiceManagerImpl());
-		converter.setSchema(Document.getClassSchema());
-		return converter;
-	}
+    @Bean
+    public Function<Flux<Document>, Flux<Document>> process() {
+        return documentFlux -> documentFlux.doOnNext(document -> document.setText(document.getText().toUpperCase()))
+                                           .log();
+    }
 
-	@Bean
-	public Function<Flux<Document>, Flux<Document>> process() {
-		return documentFlux -> documentFlux.doOnNext(document -> document.setText("hello"))
-										   .log();
-	}
+    @Bean
+    public MessageConverter avroDocumentMessageConverter() {
+        AvroSchemaMessageConverter converter = new AvroSchemaMessageConverter(MimeType.valueOf("avro/bytes"), new AvroSchemaServiceManagerImpl());
+        converter.setSchema(Document.getClassSchema());
+        return converter;
+    }
 
 }
