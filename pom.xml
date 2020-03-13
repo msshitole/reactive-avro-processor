@@ -16,10 +16,10 @@
 
     <properties>
         <java.version>11</java.version>
-        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <avro.version>1.9.1</avro.version>
         <jib-maven-plugin.version>1.0.2</jib-maven-plugin.version>
-        <jib-maven-plugin.image>primeresearch/${project.artifactId}</jib-maven-plugin.image>
+        <jib-maven-plugin.image>xyz/${project.artifactId}</jib-maven-plugin.image>
         <openjdk.docker.version>openjdk:11.0.5-jdk-stretch</openjdk.docker.version>
     </properties>
 
